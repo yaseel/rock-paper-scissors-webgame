@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rock Paper Scissors</title>
+  <style>
+    body {
+      background-color: rgb(25, 25, 25);
+      color: white;
+      font-family: Arial;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin: 30px 0px;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .move-icon {
+      height: 50px;
+    }
+
+    .move-button {
+      width: 120px;
+      height: 120px;
+      border-radius: 60px;
+      border: 3px solid white;
+      background-color: transparent;
+      margin-right: 10px;
+    }
+
+    .score {
+      margin-top: 60px;
+    }
+
+    .reset-button {
+      padding: 8px 15px;
+      font-size: 15px;
+      background-color: white;
+      border: none;
+    }
+
+    .result {
+      font-size: 25px;
+      font-weight: bold;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    Rock Paper Scissors
+  </h1>
+
+  <button class="move-button" onclick="
+    playGame('rock');
+  ">
+    <img class="move-icon" src="images/rock-emoji.png">
+  </button>
+
+  <button class="move-button" onclick="
+    playGame('paper');
+  ">
+    <img class="move-icon" src="images/paper-emoji.png">
+  </button>
+
+  <button class="move-button" onclick="
+    playGame('scissors');
+  ">
+    <img class="move-icon" src="images/scissors-emoji.png">
+  </button>
+
+  <p class="js-result result"></p>
+  <p class="js-moves"></p>
+  <p class="js-score score"></p>
+
+  <button class="reset-button" onclick="
+    resetScore();
+    updateScoreElement();
+  ">
+    Reset Score
+  </button>
+
+  <script>
+    let score = JSON.parse(localStorage.getItem('score')) || {
+        wins: 0,
+        losses: 0,
+        ties: 0
+    };
+
+    updateScoreElement()
+
+    function resetScore() {
+        score.wins = 0;
+        score.losses = 0;
+        score.ties = 0;
+        localStorage.removeItem('score');
+    }
+
+    function playGame(playerMove) {
+        const computerMove = pickComputerMove();
+
+        let result = '';
+        if (playerMove === 'scissors') {
+            if (computerMove === 'scissors') {
+                result = 'Tie.';
+            } else if (computerMove === 'rock') {
+                result = 'You lose.';
+            } else {
+                result = 'You win.';
+            }
+
+        } else if (playerMove === 'paper') {
+            if (computerMove === 'paper') {
+                result = 'Tie.';
+            } else if (computerMove === 'scissors') {
+                result = 'You lose.';
+            } else {
+                result = 'You win.';
+            }
+
+        } else {
+            if (computerMove === 'rock') {
+                result = 'Tie.';
+            } else if (computerMove === 'paper') {
+                result = 'You lose.';
+            } else {
+                result = 'You win.';
+            }
+        }
+
+        if (result === 'You win.') {
+            score.wins += 1;
+        } else if (result === 'You lose.') {
+            score.losses += 1;
+        } else {
+            score.ties += 1;
+        }
+
+        localStorage.setItem('score', JSON.stringify(score));
+
+        updateScoreElement()
+
+        document.querySelector('.js-result').innerHTML = result;
+
+        document.querySelector('.js-moves')
+            .innerHTML = `You
+              <img class="move-icon" src="images/${playerMove}-emoji.png">
+              <img class="move-icon" src="images/${computerMove}-emoji.png">
+              Computer`
+    }
+
+    function updateScoreElement() {
+        document.querySelector('.js-score')
+            .innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`;
+    }
+
+    function pickComputerMove() {
+        const randomNumber = Math.random();
+
+        let computerMove = '';
+
+        if (randomNumber >= 0 && randomNumber < 1 / 3) {
+            computerMove = 'rock';
+        } else if (randomNumber >= 1 / 3 && randomNumber < 2 / 3) {
+            computerMove = 'paper';
+        } else {
+            computerMove = 'scissors';
+        }
+
+        return computerMove;
+    }
+  </script>
+</body>
+</html>
