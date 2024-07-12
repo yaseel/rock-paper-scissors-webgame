@@ -1,4 +1,4 @@
-<p align="center">Minimalistic style Rock Paper Scissors webgame with AutoPlay feature</p>
+<p align="center">Minimalistic style Rock Paper Scissors webgame with AutoPlay feature.</p>
 <p align="center">Preview screenshot below</p>
 
 <p align="center">
