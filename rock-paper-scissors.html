@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Rock Paper Scissors</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="script.js"></script>
 </head>
 <body>
   <h1>
@@ -33,11 +32,19 @@
   <p class="js-moves"></p>
   <p class="js-score score"></p>
 
-  <button class="reset-button" onclick="
+  <button class="bottom-button" onclick="
     resetScore();
     updateScoreElement();
   ">
     Reset Score
   </button>
+
+  <button class="bottom-button js-auto-play-button" onclick="
+    autoPlay()
+  ">
+    Auto Play
+  </button>
+
+  <script src="script.js"></script>
 </body>
 </html>
